@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Waste Bins</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f4f7fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #00695c;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    nav {
+      background-color: #004d40;
+      padding: 12px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd54f;
+    }
+
+    main {
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #004d40;
+    }
+
+    /* ✅ Bin summary section */
+    .summary-section {
+      background-color: #e0f2f1;
+      border-radius: 10px;
+      text-align: center;
+      padding: 15px;
+      margin: 30px auto;
+      max-width: 600px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .summary-section h3 {
+      color: #00695c;
+      margin-bottom: 8px;
+    }
+
+    .summary-section p {
+      font-size: 18px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .bins-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .bin-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .bin-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .bin-header {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #00695c;
+    }
+
+    .bin-location {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 10px;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background-color: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 5px;
+    }
+
+    .status {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .status-empty span {
+      background: green;
+    }
+
+    .status-full span {
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <header>🗑️ Smart Waste Bins</header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="bins.html">Bins</a>
+    <a href="pickups.html">Pickups</a>
+    <a href="report.html">Report Waste</a>
+    <a href="feedback.html">Feedback</a>
+  </nav>
+
+  <main>
+    <!-- ✅ Bin summary added here -->
+    <section id="binSummary" class="summary-section">
+      <h3>Bin Summary</h3>
+      <p id="summaryData">Loading summary...</p>
+    </section>
+
+    <h2>All Smart Waste Bins</h2>
+    <div class="bins-grid" id="binsContainer">Loading bins...</div>
+  </main>
+  
+  <script src="script.js"></script>
+</body>
+</html>

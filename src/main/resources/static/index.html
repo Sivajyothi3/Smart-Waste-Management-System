@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Waste Management | Home</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f7f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #00695c;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+    }
+
+    header h2 {
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #004d40;
+      margin-bottom: 30px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #00695c;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .status-full { background-color: #d32f2f; }       /* Red */
+    .status-75 { background-color: #f57c00; }         /* Orange */
+    .status-50 { background-color: #fbc02d; color: #000; } /* Yellow */
+    .status-25 { background-color: #388e3c; }         /* Green */
+    .status-available { background-color: #2e7d32; }  /* Dark Green */
+
+    footer {
+      text-align: center;
+      background-color: #004d40;
+      color: white;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>♻️ Smart Waste System</h2>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="bins.html">Bins</a>
+      <a href="pickups.html">Pickups</a>
+      <a href="report.html">Report Waste</a>
+      <a href="feedback.html">Feedback</a>
+    </nav>
+  </header>
+
+  <section class="section">
+    <h2>🗑️ Recent Waste Reports</h2>
+    <div id="reportsContainer" class="cards">
+      <!-- Reports will load here -->
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>💬 User Feedback</h2>
+    <div id="feedbackContainer" class="cards">
+      <!-- Feedback will load here -->
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Smart Waste Management System | Built for Cleaner Cities 🌿</p>
+  </footer>
+
+  <script>
+    const API_BASE_URL = "http://localhost:8080/api";
+
+    // 🗑️ Load Recent Reports
+    async function loadReports() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/reports`);
+        const reports = await response.json();
+        const container = document.getElementById("reportsContainer");
+        container.innerHTML = "";
+
+        if (reports.length === 0) {
+          container.innerHTML = "<p>No reports available.</p>";
+          return;
+        }
+
+        reports.slice(-4).reverse().forEach(report => {
+          const status = (report.status || "Available").toLowerCase();
+          let badgeClass = "status-available";
+          if (status.includes("full")) badgeClass = "status-full";
+          else if (status.includes("75")) badgeClass = "status-75";
+          else if (status.includes("50")) badgeClass = "status-50";
+          else if (status.includes("25")) badgeClass = "status-25";
+
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <h3>${report.location || "No Location"}</h3>
+            <p><strong>Description:</strong> ${report.description || "No description provided"}</p>
+            <p><strong>Status:</strong> 
+              <span class="status-badge ${badgeClass}">
+                ${report.status || "Available"}
+              </span>
+            </p>
+          `;
+          container.appendChild(card);
+        });
+      } catch (error) {
+        console.error("Error loading reports:", error);
+      }
+    }
+
+    // 💬 Load Feedback
+    async function loadFeedback() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/feedback`);
+        const feedbacks = await response.json();
+        const container = document.getElementById("feedbackContainer");
+        container.innerHTML = "";
+
+        if (feedbacks.length === 0) {
+          container.innerHTML = "<p>No feedback available.</p>";
+          return;
+        }
+
+        feedbacks.slice(-4).reverse().forEach(fb => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <h3>${fb.name}</h3>
+            <p><strong>Email:</strong> ${fb.email}</p>
+            <p>${fb.message}</p>
+          `;
+          container.appendChild(card);
+        });
+      } catch (error) {
+        console.error("Error loading feedback:", error);
+      }
+    }
+
+    loadReports();
+    loadFeedback();
+  </script>
+</body>
+</html>

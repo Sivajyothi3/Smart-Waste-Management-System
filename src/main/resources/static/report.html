@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Waste | Smart Waste System</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background-color: #f4f7f8;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+    }
+
+    header {
+      background-color: #00695c;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+    }
+
+    header h2 {
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #004d40;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #00796b;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>♻️ Smart Waste System</h2>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="bins.html">Bins</a>
+      <a href="pickups.html">Pickups</a>
+      <a href="report.html">Report Waste</a>
+      <a href="feedback.html">Feedback</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Report Waste Issue</h2>
+
+    <form id="reportForm">
+      <label for="location">📍 Location:</label>
+      <input type="text" id="location" name="location" placeholder="Enter location (e.g., near park, street name)" required />
+
+      <label for="description">📝 Description:</label>
+      <textarea id="description" name="description" rows="4" placeholder="Describe the issue..." required></textarea>
+
+      <label for="status">🚮 Bin Status:</label>
+      <select id="status" name="status" required>
+        <option value="">Select status</option>
+        <option value="Full">Full</option>
+        <option value="75%">75% Filled</option>
+        <option value="50%">50% Filled</option>
+        <option value="25%">25% Filled</option>
+        <option value="Available">Available (Empty)</option>
+      </select>
+
+      <button type="submit">Submit Report</button>
+    </form>
+  </div>
+
+  <script>
+    const API_BASE_URL = "http://localhost:8080/api";
+
+    document.getElementById("reportForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const reportData = {
+        location: document.getElementById("location").value,
+        description: document.getElementById("description").value,
+        status: document.getElementById("status").value
+      };
+
+      const response = await fetch(`${API_BASE_URL}/reports`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reportData)
+      });
+
+      if (response.ok) {
+        alert("✅ Report submitted successfully!");
+        window.location.href = "index.html";
+      } else {
+        alert("❌ Failed to submit report. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>
