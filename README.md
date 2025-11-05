@@ -98,18 +98,21 @@ This project is ideal for showcasing skills in **Java Spring Boot**, **MySQL**, 
 
 3. Configure your database:
 
-  Create a MySQL database:
-  
-  CREATE DATABASE smartwaste_dev;
-  Update credentials in src/main/resources/application.properties.
+   Create a MySQL database:
+   
+   CREATE DATABASE smartwaste_dev;
+   Update credentials in src/main/resources/application.properties.
 
 4. Build and run:
 
-  ./mvnw spring-boot:run
-  Open in your browser:
-  👉 http://localhost:8080
+   ./mvnw spring-boot:run
+   Open in your browser:
+   👉 http://localhost:8080
 
+   ---
+   
 🔐 Security Note
+
 The file application-example.properties is provided as a safe template (no real credentials).
 
 Your actual credentials should remain only in application.properties on your local machine.
@@ -129,9 +132,13 @@ Deploy on cloud (Render / Railway) with environment variables.
 👩‍💻 Author
 
 Varikunta Siva Jyothi
+
 💻 B.Tech Student | Aspiring Full Stack Developer
+
 🌟 GitHub: Sivajyothi3 
+
 📧 Email: varikuntasj@gmail.com
+
 ---
 
 ⭐ If you like this project, give it a star on GitHub!
