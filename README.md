@@ -60,24 +60,6 @@ This project is ideal for showcasing skills in **Java Spring Boot**, **MySQL**, 
 
 ---
 
-🏗️ Project Architecture
-
-Below is the system overview — showing how frontend, backend, and database interact:
-
-+---------------------+         +----------------------------+         +--------------------+
-| 🌐 Frontend (HTML,  |  --->   | ⚙️ Backend (Spring Boot)   |  --->   | 🗄️ MySQL Database   |
-| CSS, JavaScript)    |         | REST APIs (CRUD Operations)|         | (Bins, Reports etc.)|
-+---------------------+         +----------------------------+         +--------------------+
-        ↑                                                                 |
-        |                                                                 |
-        +---------------- Citizen Feedback, Reports ----------------------+
-
-
-The frontend communicates with backend REST APIs hosted on localhost:8080/api,
-which interact with the MySQL database to manage bins, feedback, and reports.
-
----
-
 ## ⚙️ Tech Stack
 
 **Frontend:**
